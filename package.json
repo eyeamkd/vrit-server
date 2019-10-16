@@ -1,0 +1,26 @@
+{
+  "name": "vrit-server",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "connect-redis": "^4.0.3",
+    "cookie-parser": "^1.4.4",
+    "debug": "~2.6.9",
+    "expo-server-sdk": "^3.3.0",
+    "express": "~4.16.1",
+    "express-mailer": "^0.3.1",
+    "express-session": "^1.16.2",
+    "http-errors": "~1.6.3",
+    "knex": "^0.19.5",
+    "mongodb": "^3.3.2",
+    "morgan": "~1.9.1",
+    "nodemailer": "^6.3.1",
+    "nodemon": "^1.19.3",
+    "pg": "^7.12.1",
+    "pug": "^2.0.4",
+    "redis": "^2.8.0"
+  }
+}
