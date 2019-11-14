@@ -5,17 +5,29 @@ var logger = require('morgan');
 const session = require('express-session');  
 const redis = require('redis');
 const redisClient = redis.createClient();
-const redisStore = require('connect-redis')(session); 
-const { Expo } = require('expo-server-sdk');
+const redisStore = require('connect-redis')(session);  
+const mongoose = require('mongoose');
+const MONGO_DATABASE = 'mongodb://localhost:27017/vritDB';
+const { Expo } = require('expo-server-sdk'); 
 //-------------------------Routers-----------------------------//
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users'); 
 var signinRouter = require('./routes/signin'); 
-var otpRouter = require('./routes/otp'); 
+var otpRouter = require('./routes/otp');  
+var pollsRouter = require('./routes/polls');
 var notificationsRouter = require('./routes/notifications');
 
 const app = express()  
-
+mongoose.connect(MONGO_DATABASE,{   
+  useCreateIndex:true,
+  useNewUrlParser:true,
+  useFindAndModify:true
+}).then(connectionObject=>{ 
+  console.log("MONGO DB Connected"); 
+  //console.log(connectionObject.connections); 
+}).catch(err=>{ 
+  console.log(err);
+});
 let savedPushTokens = [];
 
 
@@ -48,7 +60,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter); 
 app.use('/signin',signinRouter);  
 app.use('/notifications',notificationsRouter); 
-app.use('/otp',otpRouter);
+app.use('/otp',otpRouter); 
+app.use('/polls',pollsRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
